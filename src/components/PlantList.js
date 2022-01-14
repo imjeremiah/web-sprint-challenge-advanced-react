@@ -9,6 +9,17 @@ export default class PlantList extends Component {
   // when the component mounts:
   //   - fetch data from the server endpoint - http://localhost:3333/plants
   //   - set the returned plants array to this.state.plants
+  componentDidMount() {
+    axios.get('http://localhost:3333/plants')
+      .then(res => {
+        this.setState({
+          plants: res.data
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
 
   /*********  DON'T CHANGE ANYTHING IN THE RENDER FUNCTION *********/
   render() {
@@ -23,8 +34,8 @@ export default class PlantList extends Component {
               <p>{plant.description}</p>
               <div className="plant-bottom-row">
                 <p>${plant.price}</p>
-                <p>☀️ {plant.light}</p>
-                <p>💦 {plant.watering}x/month</p>
+                <p><span role="img" aria-label="asterisk">☀️</span> {plant.light}</p>
+                <p><span role="img" aria-label="water">💦</span> {plant.watering}x/month</p>
               </div>
               <button
                 className="plant-button"
